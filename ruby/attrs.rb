@@ -3,25 +3,27 @@ class Attrs
   attr_reader :reader
   attr_writer :writer
   attr :attr
+end
 
-  def initialize
-    @accessor = "read_write"
-    @reader = "read_only"
-    @writer = "write_only"
-  end
+def get_accessibility(object, attribute)
+  puts "Can read? #{object.respond_to?("#{attribute}".to_sym)}"
+  puts "Can write? #{object.respond_to?("#{attribute}=".to_sym)}"
 end
 
 attributes = Attrs.new
 
 # accessor can read and write
-puts attributes.accessor
-attributes.accessor = "accessor"
-puts attributes.accessor
+puts "=== Accessor ==="
+get_accessibility(attributes, "accessor")
 
-#reader can't write
-# attributes.reader = "can't read"
-puts attributes.reader
+# reader can't write
+puts "=== Reader ==="
+get_accessibility(attributes, "reader")
 
-#writer can't read
-# puts attributes.writer
-attributes.writer = "write"
+# writer can't read
+puts "=== Writter ==="
+get_accessibility(attributes, "writer")
+
+# attr can't write
+puts "=== Attribute ==="
+get_accessibility(attributes, "attr")
